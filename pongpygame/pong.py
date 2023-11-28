@@ -236,4 +236,4 @@ while game_loop:
         else:
             screen.blit(lose_text, lose_text_rect)
     pygame.display.flip()
-    game_clock.tick(100)
+    game_clock.tick(75)
