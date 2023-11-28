@@ -7,8 +7,8 @@ COLOR_BLACK = (0, 0, 0)
 COLOR_WHITE = (255, 255, 255)
 WIDTH = 1280
 HEIGHT = 720
-SCORE_MAX = 20
-PROBABILITY = 88
+SCORE_MAX = 5
+PROBABILITY = 90
 
 size = (WIDTH, HEIGHT)
 pygame.init()
@@ -45,10 +45,15 @@ ball_speed_extremity = 7
 ball_speed_middle = 5
 
 # victory text
-victory_font = pygame.font.Font('assets/PressStart2P.ttf', 100)
-victory_text = victory_font.render('VICTORY', True, COLOR_WHITE, COLOR_BLACK)
+result_font = pygame.font.Font('assets/PressStart2P.ttf', 100)
+victory_text = result_font.render('VICTORY', True, COLOR_WHITE, COLOR_BLACK)
 victory_text_rect = score_text.get_rect()
-victory_text_rect.center = (450, 350)
+victory_text_rect.center = (550, 350)
+
+# victory text
+lose_text = result_font.render('LOSE', True, COLOR_WHITE, COLOR_BLACK)
+lose_text_rect = score_text.get_rect()
+lose_text_rect.center = (550, 350)
 
 # sound effects
 bounce_wall_sound_effect = pygame.mixer.Sound('assets/bounce_wall.wav')
@@ -179,7 +184,8 @@ while game_loop:
 
         # scoring points
         if ball_position_x < 38:
-            ball_speed_y = ball_speed_y_default
+            direction_random = random.choice([-1, 1])
+            ball_speed_y = ball_speed_y_default * direction_random
             ball_speed_x = ball_speed_x_default
             if ball_speed_x > 0:
                 ball_speed_x *= -1
@@ -188,7 +194,8 @@ while game_loop:
             player_2.score += 1
             scoring_sound_effect.play()
         elif ball_position_x > 1244:
-            ball_speed_y = ball_speed_y_default
+            direction_random = random.choice([-1, 1])
+            ball_speed_y = ball_speed_y_default * direction_random
             ball_speed_x = ball_speed_x_default
             if ball_speed_x < 0:
                 ball_speed_x *= -1
@@ -224,7 +231,9 @@ while game_loop:
         screen.fill(COLOR_BLACK)
         screen.blit(score_text, score_text_rect)
         screen.blit(score_text2, score_text_rect2)
-        screen.blit(victory_text, victory_text_rect)
-
+        if player_1.score>player_2.score:
+            screen.blit(victory_text, victory_text_rect)
+        else:
+            screen.blit(lose_text, lose_text_rect)
     pygame.display.flip()
     game_clock.tick(100)
