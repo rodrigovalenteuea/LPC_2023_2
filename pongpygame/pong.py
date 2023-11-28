@@ -8,8 +8,8 @@ COLOR_BLACK = (0, 0, 0)
 COLOR_WHITE = (255, 255, 255)
 WIDTH = 1280
 HEIGHT = 720
-SCORE_MAX = 12
-PROBABILITY = 90
+SCORE_MAX = 10
+PROBABILITY = 91
 
 size = (WIDTH, HEIGHT)
 pygame.init()
@@ -74,7 +74,7 @@ player_2_img = pygame.image.load("assets/player.png")
 player_2 = Player()
 player_2.position_x = 1230
 player_2.position_y = 300
-player_2.speed_y = 7
+player_2.speed_y = 6
 player_2.score = 0
 
 # ball
@@ -209,7 +209,6 @@ while game_loop:
             PROBABILITY += 2
             scoring_sound_effect.play()
             var_sleep = 1
-
         # player 1 movement
         if player_1.moving_up:
             player_1.position_y -= player_1.speed_y
@@ -243,4 +242,6 @@ while game_loop:
     pygame.display.flip()
     game_clock.tick(75)
     if var_sleep == 1:
+        player_1.position_y = 300
+        player_2.position_y = 300
         time.sleep(0.5)
