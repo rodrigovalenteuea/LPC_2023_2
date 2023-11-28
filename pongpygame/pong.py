@@ -34,24 +34,13 @@ middle_bar_y = 1
 # align the middle bar to the center of the screen more accurately
 middle_bar_center = ((screen.get_width() / 2) - middle_bar.get_width())
 
-# ball
-ball = pygame.image.load("assets/ball.png")
-ball_position_x = 640
-ball_position_y = 360
-ball_speed_x_default = 6
-ball_speed_y_default = 6
-ball_speed_x = ball_speed_x_default
-ball_speed_y = ball_speed_y_default
-ball_speed_extremity = 7
-ball_speed_middle = 5
-
 # victory text
 result_font = pygame.font.Font('assets/PressStart2P.ttf', 100)
 victory_text = result_font.render('VICTORY', True, COLOR_WHITE, COLOR_BLACK)
 victory_text_rect = score_text.get_rect()
 victory_text_rect.center = (550, 350)
 
-# victory text
+# lose text
 lose_text = result_font.render('LOSE', True, COLOR_WHITE, COLOR_BLACK)
 lose_text_rect = score_text.get_rect()
 lose_text_rect.center = (550, 350)
@@ -85,8 +74,19 @@ player_2_img = pygame.image.load("assets/player.png")
 player_2 = Player()
 player_2.position_x = 1230
 player_2.position_y = 300
-player_2.speed_y = 6
+player_2.speed_y = 7
 player_2.score = 0
+
+# ball
+ball = pygame.image.load("assets/ball.png")
+ball_position_x = 640
+ball_position_y = 360
+ball_speed_x_default = 6
+ball_speed_y_default = 6
+ball_speed_x = ball_speed_x_default
+ball_speed_y = ball_speed_y_default
+ball_speed_extremity = 7
+ball_speed_middle = 5
 
 # game loop
 game_loop = True
@@ -209,6 +209,7 @@ while game_loop:
             PROBABILITY += 2
             scoring_sound_effect.play()
             var_sleep = 1
+
         # player 1 movement
         if player_1.moving_up:
             player_1.position_y -= player_1.speed_y
