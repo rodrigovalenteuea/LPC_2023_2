@@ -2,6 +2,7 @@ import pygame
 import random
 from pygame.locals import *
 from sys import exit
+import time
 
 COLOR_BLACK = (0, 0, 0)
 COLOR_WHITE = (255, 255, 255)
@@ -92,6 +93,7 @@ game_loop = True
 game_clock = pygame.time.Clock()
 
 while game_loop:
+    var_sleep = 0
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -193,6 +195,8 @@ while game_loop:
             ball_position_y = random.randint(0, 720)
             player_2.score += 1
             scoring_sound_effect.play()
+            var_sleep = 1
+
         elif ball_position_x > 1244:
             direction_random = random.choice([-1, 1])
             ball_speed_y = ball_speed_y_default * direction_random
@@ -204,7 +208,7 @@ while game_loop:
             player_1.score += 1
             PROBABILITY += 2
             scoring_sound_effect.play()
-
+            var_sleep = 1
         # player 1 movement
         if player_1.moving_up:
             player_1.position_y -= player_1.speed_y
@@ -237,3 +241,5 @@ while game_loop:
             screen.blit(lose_text, lose_text_rect)
     pygame.display.flip()
     game_clock.tick(75)
+    if var_sleep == 1:
+        time.sleep(0.5)
